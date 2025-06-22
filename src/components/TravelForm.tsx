@@ -1,14 +1,15 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 
 interface TravelFormProps {
   onSubmit: (data: { query: string; email: string; name: string }) => void;
   isLoading: boolean;
+  selectedQuery?: string;
 }
 
-const TravelForm: React.FC<TravelFormProps> = ({ onSubmit, isLoading }) => {
+const TravelForm: React.FC<TravelFormProps> = ({ onSubmit, isLoading, selectedQuery }) => {
   const [formData, setFormData] = useState({
     query: '',
     email: '',
@@ -20,6 +21,13 @@ const TravelForm: React.FC<TravelFormProps> = ({ onSubmit, isLoading }) => {
     email: '',
     name: ''
   });
+
+  // Update query when selectedQuery changes
+  useEffect(() => {
+    if (selectedQuery) {
+      setFormData(prev => ({ ...prev, query: selectedQuery }));
+    }
+  }, [selectedQuery]);
 
   const validateForm = () => {
     const newErrors = {
@@ -66,63 +74,63 @@ const TravelForm: React.FC<TravelFormProps> = ({ onSubmit, isLoading }) => {
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
       <div>
-        <label htmlFor="query" className="block text-sm font-medium text-white mb-2">
+        <label htmlFor="query" className="block text-sm font-medium text-black mb-2">
           Describe Your Ideal Stay (Include dates for best results)
         </label>
         <textarea
           id="query"
           rows={4}
-          className="w-full p-4 rounded-lg border border-white/30 focus:border-white focus:ring-2 focus:ring-white/20 transition-all text-white placeholder-white/60 resize-none focus:outline-none bg-black/50"
-          placeholder="e.g., 'Oceanfront villa in Santorini with infinity pool and sunset views for 4 guests, July 15-22, 2025'"
+          className="w-full p-4 rounded-lg border border-gray-300 focus:border-red-500 focus:ring-2 focus:ring-red-200 transition-all text-black placeholder-gray-500 resize-none focus:outline-none bg-white"
+          placeholder="e.g., 'Oceanfront villa in Santorini with infinity pool and sunset views for 4 guests, July 15-22, 2026'"
           value={formData.query}
           onChange={(e) => handleInputChange('query', e.target.value)}
           disabled={isLoading}
         />
-        {errors.query && <p className="mt-1 text-sm text-red-400">{errors.query}</p>}
+        {errors.query && <p className="mt-1 text-sm text-red-500">{errors.query}</p>}
       </div>
 
       <div className="grid md:grid-cols-2 gap-4">
         <div>
-          <label htmlFor="name" className="block text-sm font-medium text-white mb-2">
+          <label htmlFor="name" className="block text-sm font-medium text-black mb-2">
             Your Name
           </label>
           <Input
             id="name"
             type="text"
-            className="border-white/30 focus:border-white focus:ring-white/20 text-white placeholder-white/60 bg-black/50"
+            className="border-gray-300 focus:border-red-500 focus:ring-red-200 text-black placeholder-gray-500 bg-white"
             placeholder="Enter your full name"
             value={formData.name}
             onChange={(e) => handleInputChange('name', e.target.value)}
             disabled={isLoading}
           />
-          {errors.name && <p className="mt-1 text-sm text-red-400">{errors.name}</p>}
+          {errors.name && <p className="mt-1 text-sm text-red-500">{errors.name}</p>}
         </div>
 
         <div>
-          <label htmlFor="email" className="block text-sm font-medium text-white mb-2">
+          <label htmlFor="email" className="block text-sm font-medium text-black mb-2">
             Email Address
           </label>
           <Input
             id="email"
             type="email"
-            className="border-white/30 focus:border-white focus:ring-white/20 text-white placeholder-white/60 bg-black/50"
+            className="border-gray-300 focus:border-red-500 focus:ring-red-200 text-black placeholder-gray-500 bg-white"
             placeholder="your.email@example.com"
             value={formData.email}
             onChange={(e) => handleInputChange('email', e.target.value)}
             disabled={isLoading}
           />
-          {errors.email && <p className="mt-1 text-sm text-red-400">{errors.email}</p>}
+          {errors.email && <p className="mt-1 text-sm text-red-500">{errors.email}</p>}
         </div>
       </div>
 
       <Button
         type="submit"
         disabled={isLoading}
-        className="w-full bg-gradient-to-r from-white to-white/90 hover:from-white/90 hover:to-white text-black font-bold py-4 text-lg rounded-lg transition-all duration-300 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none shadow-lg"
+        className="w-full bg-gradient-to-r from-red-600 to-red-500 hover:from-red-700 hover:to-red-600 text-white font-bold py-4 text-lg rounded-lg transition-all duration-300 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none shadow-lg"
       >
         {isLoading ? (
           <span className="flex items-center justify-center">
-            <div className="w-5 h-5 border-2 border-black border-opacity-20 rounded-full animate-spin mr-2"></div>
+            <div className="w-5 h-5 border-2 border-white border-opacity-20 rounded-full animate-spin mr-2"></div>
             Searching...
           </span>
         ) : (
@@ -132,7 +140,7 @@ const TravelForm: React.FC<TravelFormProps> = ({ onSubmit, isLoading }) => {
         )}
       </Button>
 
-      <p className="text-xs text-white/60 text-center">
+      <p className="text-xs text-gray-500 text-center">
         Your personalized Airbnb listings will be sent to your email within minutes
       </p>
     </form>
