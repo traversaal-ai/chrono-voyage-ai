@@ -38,7 +38,7 @@ const Index = () => {
         toast({
           title: "🏠 Search Submitted Successfully!",
           description: "We're finding the perfect Airbnb listings for you. Check your email shortly!",
-          className: "border-gray-300 bg-white text-gray-900",
+          className: "border-red-300 bg-black text-red-300",
         });
       } else {
         throw new Error(`Request failed with status: ${response.status}`);
@@ -49,7 +49,7 @@ const Index = () => {
         title: "❌ Connection Error",
         description: "Unable to process your search. Please check your connection and try again.",
         variant: "destructive",
-        className: "border-gray-300 bg-white text-gray-900",
+        className: "border-red-300 bg-black text-red-300",
       });
     } finally {
       setIsLoading(false);
@@ -57,7 +57,7 @@ const Index = () => {
   };
 
   return (
-    <div className="min-h-screen bg-white text-gray-900 relative overflow-hidden">
+    <div className="min-h-screen bg-black text-white relative overflow-hidden">
       <ParticlesBackground />
       
       {/* Hero Section */}
@@ -67,19 +67,19 @@ const Index = () => {
       <div className="container mx-auto px-4 py-16 relative z-10">
         <div className="max-w-2xl mx-auto">
           {!isSubmitted ? (
-            <Card className="bg-white/90 backdrop-blur-sm border border-gray-200 shadow-xl p-8 animate-slide-up">
+            <Card className="bg-black/90 backdrop-blur-sm border border-red-300/30 shadow-xl p-8 animate-slide-up">
               <div className="text-center mb-8">
-                <h2 className="text-2xl font-bold text-black mb-4">
+                <h2 className="text-2xl font-bold text-red-400 mb-4">
                   Find Your Perfect Airbnb
                 </h2>
-                <p className="text-gray-600 text-lg mb-6">
+                <p className="text-red-300 text-lg mb-6">
                   Describe your ideal home away from home and we'll find the best listings worldwide
                 </p>
                 
                 {/* Example queries */}
-                <div className="bg-gray-50 rounded-lg p-4 mb-6">
-                  <h3 className="text-sm font-semibold text-gray-800 mb-2">Example searches:</h3>
-                  <div className="text-sm text-gray-600 space-y-1">
+                <div className="bg-red-950/50 rounded-lg p-4 mb-6">
+                  <h3 className="text-sm font-semibold text-red-400 mb-2">Example searches:</h3>
+                  <div className="text-sm text-red-300 space-y-1">
                     <p>• "Beachfront villa in Bali with private pool for 6 people, December 15-22, 2024"</p>
                     <p>• "Modern apartment in Tokyo near train stations, March 1-7, 2025"</p>
                     <p>• "Cozy cabin in the Swiss Alps with mountain views, January 10-17, 2025"</p>
@@ -90,14 +90,14 @@ const Index = () => {
               <TravelForm onSubmit={handleFormSubmit} isLoading={isLoading} />
             </Card>
           ) : (
-            <Card className="bg-white/90 backdrop-blur-sm border border-gray-200 shadow-xl p-8 animate-slide-up text-center">
-              <div className="text-green-600 mb-4">
+            <Card className="bg-black/90 backdrop-blur-sm border border-red-300/30 shadow-xl p-8 animate-slide-up text-center">
+              <div className="text-green-400 mb-4">
                 <svg className="w-16 h-16 mx-auto mb-4" fill="currentColor" viewBox="0 0 20 20">
                   <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
                 </svg>
               </div>
-              <h2 className="text-2xl font-bold text-gray-900 mb-4">Search Submitted!</h2>
-              <p className="text-gray-600 text-lg">
+              <h2 className="text-2xl font-bold text-red-400 mb-4">Search Submitted!</h2>
+              <p className="text-red-300 text-lg">
                 You will find your listings shortly. We're searching through thousands of Airbnb properties to find your perfect match.
               </p>
             </Card>
@@ -106,16 +106,16 @@ const Index = () => {
       </div>
 
       {/* Experimental Notice */}
-      <div className="fixed bottom-4 right-4 bg-white/90 backdrop-blur-sm border border-gray-200 rounded-lg p-3 shadow-lg">
-        <p className="text-xs text-gray-500">
+      <div className="fixed bottom-4 right-4 bg-black/90 backdrop-blur-sm border border-red-300/30 rounded-lg p-3 shadow-lg">
+        <p className="text-xs text-red-300">
           🧪 Experimental Project
         </p>
       </div>
 
       {/* Footer */}
-      <footer className="border-t border-gray-200 bg-white/50 backdrop-blur-sm py-8 relative z-10">
+      <footer className="border-t border-red-300/30 bg-black/50 backdrop-blur-sm py-8 relative z-10">
         <div className="container mx-auto px-4 text-center">
-          <p className="text-gray-500">
+          <p className="text-red-300">
             © 2024 Airbnb Home Searches. Find unique stays worldwide.
           </p>
         </div>
