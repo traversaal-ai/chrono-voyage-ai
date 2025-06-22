@@ -4,7 +4,7 @@ import React from 'react';
 const ParticlesBackground = () => {
   return (
     <div className="particles">
-      {Array.from({ length: 20 }).map((_, i) => (
+      {Array.from({ length: 30 }).map((_, i) => (
         <div
           key={i}
           className="particle"
@@ -17,17 +17,17 @@ const ParticlesBackground = () => {
         />
       ))}
       
-      {/* Subtle gradient overlays for depth */}
+      {/* Gradient overlays for depth */}
       <div 
-        className="absolute inset-0 opacity-5"
+        className="absolute inset-0 opacity-10"
         style={{
-          background: 'radial-gradient(circle at 20% 30%, rgba(0, 0, 0, 0.1) 0%, transparent 50%)',
+          background: 'radial-gradient(circle at 20% 30%, rgba(220, 38, 38, 0.3) 0%, transparent 50%)',
         }}
       />
       <div 
-        className="absolute inset-0 opacity-5"
+        className="absolute inset-0 opacity-10"
         style={{
-          background: 'radial-gradient(circle at 80% 70%, rgba(0, 0, 0, 0.1) 0%, transparent 50%)',
+          background: 'radial-gradient(circle at 80% 70%, rgba(239, 68, 68, 0.3) 0%, transparent 50%)',
         }}
       />
     </div>
