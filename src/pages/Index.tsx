@@ -11,6 +11,7 @@ import TravelForm from '@/components/TravelForm';
 
 const Index = () => {
   const [isLoading, setIsLoading] = useState(false);
+  const [isSubmitted, setIsSubmitted] = useState(false);
   const { toast } = useToast();
 
   const handleFormSubmit = async (data: { query: string; email: string; name: string }) => {
@@ -33,10 +34,11 @@ const Index = () => {
       });
 
       if (response.ok) {
+        setIsSubmitted(true);
         toast({
-          title: "🚀 Request Sent Successfully!",
-          description: "Our AI travel agent is processing your dream destination. You'll receive a personalized travel plan via email shortly.",
-          className: "border-futuristic-orange bg-gradient-glass text-white",
+          title: "🏠 Search Submitted Successfully!",
+          description: "We're finding the perfect Airbnb listings for you. Check your email shortly!",
+          className: "border-red-500 bg-white text-gray-900",
         });
       } else {
         throw new Error(`Request failed with status: ${response.status}`);
@@ -45,9 +47,9 @@ const Index = () => {
       console.error('Error sending request:', error);
       toast({
         title: "❌ Connection Error",
-        description: "Unable to connect to our AI travel agent. Please check your connection and try again.",
+        description: "Unable to process your search. Please check your connection and try again.",
         variant: "destructive",
-        className: "border-futuristic-red bg-gradient-glass text-white",
+        className: "border-red-500 bg-white text-gray-900",
       });
     } finally {
       setIsLoading(false);
@@ -55,7 +57,7 @@ const Index = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-futuristic text-white relative overflow-hidden">
+    <div className="min-h-screen bg-gradient-to-br from-white via-red-50 to-red-100 text-gray-900 relative overflow-hidden">
       <ParticlesBackground />
       
       {/* Hero Section */}
@@ -64,55 +66,57 @@ const Index = () => {
       {/* Main Content */}
       <div className="container mx-auto px-4 py-16 relative z-10">
         <div className="max-w-2xl mx-auto">
-          <Card className="glass-card p-8 animate-slide-up">
-            <div className="text-center mb-8">
-              <h2 className="text-2xl font-bold text-futuristic-orange mb-4">
-                Plan Your Next Adventure
-              </h2>
-              <p className="text-gray-300 text-lg">
-                Describe your dream destination and let our AI create the perfect travel experience for you
-              </p>
-            </div>
+          {!isSubmitted ? (
+            <Card className="bg-white/80 backdrop-blur-sm border border-red-200 shadow-2xl p-8 animate-slide-up">
+              <div className="text-center mb-8">
+                <h2 className="text-2xl font-bold text-red-600 mb-4">
+                  Find Your Perfect Airbnb
+                </h2>
+                <p className="text-gray-600 text-lg mb-6">
+                  Describe your ideal home away from home and we'll find the best listings worldwide
+                </p>
+                
+                {/* Example queries */}
+                <div className="bg-red-50 rounded-lg p-4 mb-6">
+                  <h3 className="text-sm font-semibold text-red-700 mb-2">Example searches:</h3>
+                  <div className="text-sm text-gray-600 space-y-1">
+                    <p>• "Beachfront villa in Bali with private pool for 6 people"</p>
+                    <p>• "Modern apartment in Tokyo near train stations"</p>
+                    <p>• "Cozy cabin in the Swiss Alps with mountain views"</p>
+                  </div>
+                </div>
+              </div>
 
-            <TravelForm onSubmit={handleFormSubmit} isLoading={isLoading} />
-          </Card>
+              <TravelForm onSubmit={handleFormSubmit} isLoading={isLoading} />
+            </Card>
+          ) : (
+            <Card className="bg-white/80 backdrop-blur-sm border border-green-200 shadow-2xl p-8 animate-slide-up text-center">
+              <div className="text-green-600 mb-4">
+                <svg className="w-16 h-16 mx-auto mb-4" fill="currentColor" viewBox="0 0 20 20">
+                  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                </svg>
+              </div>
+              <h2 className="text-2xl font-bold text-gray-900 mb-4">Search Submitted!</h2>
+              <p className="text-gray-600 text-lg">
+                You will find your listings shortly. We're searching through thousands of Airbnb properties to find your perfect match.
+              </p>
+            </Card>
+          )}
         </div>
       </div>
 
-      {/* Features Section */}
-      <div className="container mx-auto px-4 py-16 relative z-10">
-        <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-          <Card className="glass-card p-6 text-center animate-float">
-            <div className="w-16 h-16 bg-gradient-orange rounded-full flex items-center justify-center mx-auto mb-4">
-              <span className="text-2xl">🤖</span>
-            </div>
-            <h3 className="text-xl font-bold text-futuristic-orange mb-2">AI-Powered Planning</h3>
-            <p className="text-gray-300">Advanced AI algorithms analyze your preferences to create personalized travel itineraries</p>
-          </Card>
-
-          <Card className="glass-card p-6 text-center animate-float" style={{ animationDelay: '0.2s' }}>
-            <div className="w-16 h-16 bg-gradient-orange rounded-full flex items-center justify-center mx-auto mb-4">
-              <span className="text-2xl">⚡</span>
-            </div>
-            <h3 className="text-xl font-bold text-futuristic-orange mb-2">Instant Results</h3>
-            <p className="text-gray-300">Get comprehensive travel plans delivered to your email within minutes</p>
-          </Card>
-
-          <Card className="glass-card p-6 text-center animate-float" style={{ animationDelay: '0.4s' }}>
-            <div className="w-16 h-16 bg-gradient-orange rounded-full flex items-center justify-center mx-auto mb-4">
-              <span className="text-2xl">🌟</span>
-            </div>
-            <h3 className="text-xl font-bold text-futuristic-orange mb-2">Premium Experience</h3>
-            <p className="text-gray-300">Curated recommendations for accommodations, activities, and hidden gems</p>
-          </Card>
-        </div>
+      {/* Experimental Notice */}
+      <div className="fixed bottom-4 right-4 bg-white/90 backdrop-blur-sm border border-red-200 rounded-lg p-3 shadow-lg">
+        <p className="text-xs text-gray-500">
+          🧪 Experimental Project
+        </p>
       </div>
 
       {/* Footer */}
-      <footer className="border-t border-glass-border bg-gradient-glass py-8 relative z-10">
+      <footer className="border-t border-red-200 bg-white/50 backdrop-blur-sm py-8 relative z-10">
         <div className="container mx-auto px-4 text-center">
-          <p className="text-gray-300">
-            © 2024 AI Travel Agent. Powered by advanced artificial intelligence.
+          <p className="text-gray-500">
+            © 2024 Airbnb Home Searches. Find unique stays worldwide.
           </p>
         </div>
       </footer>
