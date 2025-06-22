@@ -62,18 +62,15 @@ export default {
 					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
-				},
-				// Custom futuristic colors
-				'futuristic-orange': '#FF6B35',
-				'futuristic-black': '#000000',
-				'futuristic-red': '#DC2626',
-				'glass-white': 'rgba(255, 255, 255, 0.1)',
-				'glass-border': 'rgba(255, 255, 255, 0.2)'
+				}
 			},
 			borderRadius: {
 				lg: 'var(--radius)',
 				md: 'calc(var(--radius) - 2px)',
 				sm: 'calc(var(--radius) - 4px)'
+			},
+			fontFamily: {
+				sans: ['Noto Sans', 'ui-sans-serif', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', 'sans-serif'],
 			},
 			keyframes: {
 				'accordion-down': {
