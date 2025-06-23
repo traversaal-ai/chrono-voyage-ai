@@ -1,14 +1,15 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 
 interface TravelFormProps {
   onSubmit: (data: { query: string; email: string; name: string }) => void;
   isLoading: boolean;
+  exampleQueries: Array<{ text: string; dates: string }>;
 }
 
-const TravelForm: React.FC<TravelFormProps> = ({ onSubmit, isLoading }) => {
+const TravelForm: React.FC<TravelFormProps> = ({ onSubmit, isLoading, exampleQueries }) => {
   const [formData, setFormData] = useState({
     query: '',
     email: '',
@@ -57,23 +58,40 @@ const TravelForm: React.FC<TravelFormProps> = ({ onSubmit, isLoading }) => {
   const handleInputChange = (field: string, value: string) => {
     setFormData(prev => ({ ...prev, [field]: value }));
     
-    // Clear error when user starts typing
     if (errors[field as keyof typeof errors]) {
       setErrors(prev => ({ ...prev, [field]: '' }));
     }
   };
 
+  const handleExampleClick = (example: { text: string; dates: string }) => {
+    const fullQuery = `${example.text} from ${example.dates}`;
+    setFormData(prev => ({ ...prev, query: fullQuery }));
+    setErrors(prev => ({ ...prev, query: '' }));
+  };
+
+  // Listen for example clicks from parent component
+  useEffect(() => {
+    const handleExampleSelect = (event: CustomEvent) => {
+      handleExampleClick(event.detail);
+    };
+
+    window.addEventListener('exampleSelected', handleExampleSelect as EventListener);
+    return () => {
+      window.removeEventListener('exampleSelected', handleExampleSelect as EventListener);
+    };
+  }, []);
+
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
       <div>
         <label htmlFor="query" className="block text-sm font-medium text-gray-700 mb-2">
-          Describe Your Ideal Stay
+          Where would you like to stay?
         </label>
         <textarea
           id="query"
           rows={4}
-          className="w-full p-4 rounded-lg border border-red-200 focus:border-red-500 focus:ring-2 focus:ring-red-200 transition-all text-gray-900 placeholder-gray-400 resize-none focus:outline-none bg-white"
-          placeholder="e.g., 'Oceanfront villa in Santorini with infinity pool and sunset views for 4 guests'"
+          className="w-full p-4 rounded-xl border border-gray-300 focus:border-red-500 focus:ring-2 focus:ring-red-200 transition-all text-gray-900 placeholder-gray-400 resize-none focus:outline-none bg-white"
+          placeholder="e.g., 'Oceanfront villa in Santorini with infinity pool and sunset views for 4 guests from 21st July to 23rd July 2025'"
           value={formData.query}
           onChange={(e) => handleInputChange('query', e.target.value)}
           disabled={isLoading}
@@ -89,7 +107,7 @@ const TravelForm: React.FC<TravelFormProps> = ({ onSubmit, isLoading }) => {
           <Input
             id="name"
             type="text"
-            className="border-red-200 focus:border-red-500 focus:ring-red-200 text-gray-900 placeholder-gray-400 bg-white"
+            className="rounded-xl border-gray-300 focus:border-red-500 focus:ring-red-200 text-gray-900 placeholder-gray-400 bg-white"
             placeholder="Enter your full name"
             value={formData.name}
             onChange={(e) => handleInputChange('name', e.target.value)}
@@ -105,7 +123,7 @@ const TravelForm: React.FC<TravelFormProps> = ({ onSubmit, isLoading }) => {
           <Input
             id="email"
             type="email"
-            className="border-red-200 focus:border-red-500 focus:ring-red-200 text-gray-900 placeholder-gray-400 bg-white"
+            className="rounded-xl border-gray-300 focus:border-red-500 focus:ring-red-200 text-gray-900 placeholder-gray-400 bg-white"
             placeholder="your.email@example.com"
             value={formData.email}
             onChange={(e) => handleInputChange('email', e.target.value)}
@@ -118,7 +136,7 @@ const TravelForm: React.FC<TravelFormProps> = ({ onSubmit, isLoading }) => {
       <Button
         type="submit"
         disabled={isLoading}
-        className="w-full bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white font-bold py-4 text-lg rounded-lg transition-all duration-300 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none shadow-lg"
+        className="w-full bg-red-500 hover:bg-red-600 text-white font-semibold py-4 text-base rounded-xl transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed shadow-sm"
       >
         {isLoading ? (
           <span className="flex items-center justify-center">
@@ -126,9 +144,7 @@ const TravelForm: React.FC<TravelFormProps> = ({ onSubmit, isLoading }) => {
             Searching...
           </span>
         ) : (
-          <>
-            🔍 Find My Perfect Airbnb
-          </>
+          'Search'
         )}
       </Button>
 

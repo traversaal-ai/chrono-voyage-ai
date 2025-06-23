@@ -1,12 +1,9 @@
 
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
 import { Card } from '@/components/ui/card';
 import { useToast } from '@/hooks/use-toast';
-import ParticlesBackground from '@/components/ParticlesBackground';
 import LoadingSpinner from '@/components/LoadingSpinner';
-import HeroSection from '@/components/HeroSection';
 import TravelForm from '@/components/TravelForm';
 
 const Index = () => {
@@ -18,7 +15,6 @@ const Index = () => {
     setIsLoading(true);
     
     try {
-      // Create URL with parameters
       const webhookUrl = new URL('https://n8n.srv874091.hstgr.cloud/webhook/2586fd7a-0113-4719-8038-9b59cbcea6e0');
       webhookUrl.searchParams.append('query', data.query);
       webhookUrl.searchParams.append('email', data.email);
@@ -56,68 +52,131 @@ const Index = () => {
     }
   };
 
-  return (
-    <div className="min-h-screen bg-gradient-to-br from-white via-red-50 to-red-100 text-gray-900 relative overflow-hidden">
-      <ParticlesBackground />
-      
-      {/* Hero Section */}
-      <HeroSection />
+  const exampleQueries = [
+    {
+      text: "Beachfront villa in Bali with private pool for 6 people",
+      dates: "21st July to 23rd July 2025"
+    },
+    {
+      text: "Modern apartment in Tokyo near train stations", 
+      dates: "15th August to 18th August 2025"
+    },
+    {
+      text: "Cozy cabin in the Swiss Alps with mountain views",
+      dates: "10th September to 12th September 2025"
+    }
+  ];
 
-      {/* Main Content */}
-      <div className="container mx-auto px-4 py-16 relative z-10">
-        <div className="max-w-2xl mx-auto">
+  const handleExampleClick = (example: typeof exampleQueries[0]) => {
+    const fullQuery = `${example.text} from ${example.dates}`;
+    // This will be handled by the TravelForm component
+  };
+
+  return (
+    <div className="min-h-screen bg-white font-inter">
+      {/* Header */}
+      <header className="border-b border-gray-200 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-between items-center h-20">
+            <div className="flex items-center">
+              <h1 className="text-2xl font-bold text-red-500">airbnb</h1>
+              <span className="ml-2 px-2 py-1 bg-red-100 text-red-600 text-xs font-medium rounded-full">
+                EXPERIMENTAL
+              </span>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      {/* Hero Section */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div className="text-center mb-12">
+          <h1 className="text-5xl md:text-6xl font-bold text-red-500 mb-6">
+            Find your next stay
+          </h1>
+          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+            Search low prices on hotels, homes and much more...
+          </p>
+        </div>
+
+        {/* Main Search Card */}
+        <div className="max-w-4xl mx-auto">
           {!isSubmitted ? (
-            <Card className="bg-white/80 backdrop-blur-sm border border-red-200 shadow-2xl p-8 animate-slide-up">
-              <div className="text-center mb-8">
-                <h2 className="text-2xl font-bold text-red-600 mb-4">
-                  Find Your Perfect Airbnb
+            <Card className="bg-white border border-gray-200 shadow-lg rounded-2xl p-8">
+              <div className="mb-8">
+                <h2 className="text-2xl font-semibold text-gray-900 mb-4">
+                  Describe your perfect stay
                 </h2>
-                <p className="text-gray-600 text-lg mb-6">
-                  Describe your ideal home away from home and we'll find the best listings worldwide
-                </p>
                 
-                {/* Example queries */}
-                <div className="bg-red-50 rounded-lg p-4 mb-6">
-                  <h3 className="text-sm font-semibold text-red-700 mb-2">Example searches:</h3>
-                  <div className="text-sm text-gray-600 space-y-1">
-                    <p>• "Beachfront villa in Bali with private pool for 6 people"</p>
-                    <p>• "Modern apartment in Tokyo near train stations"</p>
-                    <p>• "Cozy cabin in the Swiss Alps with mountain views"</p>
+                {/* Hero Image Placeholder */}
+                <div className="mb-8 p-8 border-2 border-red-500 rounded-xl bg-red-50">
+                  <div className="text-center">
+                    <div className="w-16 h-16 bg-red-500 rounded-full mx-auto mb-4 flex items-center justify-center">
+                      <span className="text-white text-2xl">🏠</span>
+                    </div>
+                    <h3 className="text-lg font-semibold text-gray-900 mb-2">
+                      AI-Powered Search
+                    </h3>
+                    <p className="text-gray-600">
+                      Tell us what you're looking for and we'll find the perfect Airbnb matches
+                    </p>
+                  </div>
+                </div>
+                
+                {/* Example searches */}
+                <div className="bg-gray-50 rounded-xl p-6 mb-6">
+                  <h3 className="text-sm font-semibold text-gray-700 mb-4">Try these examples:</h3>
+                  <div className="space-y-3">
+                    {exampleQueries.map((example, index) => (
+                      <button
+                        key={index}
+                        onClick={() => handleExampleClick(example)}
+                        className="w-full text-left p-3 bg-white rounded-lg border border-gray-200 hover:border-red-300 hover:shadow-sm transition-all group"
+                      >
+                        <div className="text-sm text-gray-900 font-medium group-hover:text-red-600">
+                          {example.text}
+                        </div>
+                        <div className="text-xs text-gray-500 mt-1">
+                          {example.dates}
+                        </div>
+                      </button>
+                    ))}
                   </div>
                 </div>
               </div>
 
-              <TravelForm onSubmit={handleFormSubmit} isLoading={isLoading} />
+              <TravelForm onSubmit={handleFormSubmit} isLoading={isLoading} exampleQueries={exampleQueries} />
             </Card>
           ) : (
-            <Card className="bg-white/80 backdrop-blur-sm border border-green-200 shadow-2xl p-8 animate-slide-up text-center">
+            <Card className="bg-white border border-green-200 shadow-lg rounded-2xl p-8 text-center">
               <div className="text-green-600 mb-4">
-                <svg className="w-16 h-16 mx-auto mb-4" fill="currentColor" viewBox="0 0 20 20">
-                  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                </svg>
+                <div className="w-16 h-16 bg-green-100 rounded-full mx-auto mb-4 flex items-center justify-center">
+                  <svg className="w-8 h-8" fill="currentColor" viewBox="0 0 20 20">
+                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                  </svg>
+                </div>
               </div>
               <h2 className="text-2xl font-bold text-gray-900 mb-4">Search Submitted!</h2>
               <p className="text-gray-600 text-lg">
-                You will find your listings shortly. We're searching through thousands of Airbnb properties to find your perfect match.
+                We're searching through thousands of Airbnb properties to find your perfect match. 
+                Check your email shortly for results.
               </p>
             </Card>
           )}
         </div>
       </div>
 
-      {/* Experimental Notice */}
-      <div className="fixed bottom-4 right-4 bg-white/90 backdrop-blur-sm border border-red-200 rounded-lg p-3 shadow-lg">
-        <p className="text-xs text-gray-500">
-          🧪 Experimental Project
-        </p>
-      </div>
-
       {/* Footer */}
-      <footer className="border-t border-red-200 bg-white/50 backdrop-blur-sm py-8 relative z-10">
-        <div className="container mx-auto px-4 text-center">
-          <p className="text-gray-500">
-            © 2024 Airbnb Home Searches. Find unique stays worldwide.
-          </p>
+      <footer className="border-t border-gray-200 bg-gray-50 py-12 mt-16">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center">
+            <p className="text-gray-500">
+              © 2025 Airbnb Search Experimental. This is an experimental search tool.
+            </p>
+            <p className="text-sm text-gray-400 mt-2">
+              🧪 Experimental Project - Results may vary
+            </p>
+          </div>
         </div>
       </footer>
 
