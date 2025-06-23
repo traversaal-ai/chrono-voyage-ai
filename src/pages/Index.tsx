@@ -1,7 +1,15 @@
+
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { useToast } from '@/hooks/use-toast';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { ChevronDown } from 'lucide-react';
 import LoadingSpinner from '@/components/LoadingSpinner';
 import TravelForm from '@/components/TravelForm';
 
@@ -66,9 +74,10 @@ const Index = () => {
     }
   ];
 
-  const handleExampleClick = (example: typeof exampleQueries[0]) => {
+  const handleExampleSelect = (example: typeof exampleQueries[0]) => {
     const fullQuery = `${example.text} from ${example.dates}`;
-    // This will be handled by the TravelForm component
+    // Dispatch a custom event to communicate with TravelForm
+    window.dispatchEvent(new CustomEvent('exampleSelected', { detail: example }));
   };
 
   return (
@@ -88,42 +97,52 @@ const Index = () => {
       </header>
 
       {/* Hero Section */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="text-center mb-12">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <div className="text-center mb-16">
           <h1 className="text-7xl md:text-8xl font-bold text-red-500 mb-6 font-poppins">
             Airbnb Search
           </h1>
         </div>
 
         {/* Main Search Card */}
-        <div className="max-w-4xl mx-auto">
+        <div className="max-w-2xl mx-auto">
           {!isSubmitted ? (
             <Card className="bg-white border-2 border-red-500 shadow-lg rounded-2xl p-8">
-              <div className="mb-8">
+              <div className="text-center mb-8">
                 <h2 className="text-2xl font-semibold text-gray-900 mb-4">
                   Describe your perfect stay
                 </h2>
                 
-                {/* Example searches */}
-                <div className="bg-gray-50 rounded-xl p-6 mb-6">
-                  <h3 className="text-sm font-semibold text-gray-700 mb-4">Try these examples:</h3>
-                  <div className="space-y-3">
+                {/* Example Dropdown */}
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <Button 
+                      variant="outline" 
+                      className="mb-6 border-red-200 text-red-600 hover:bg-red-50 hover:border-red-300"
+                    >
+                      Try an example
+                      <ChevronDown className="ml-2 h-4 w-4" />
+                    </Button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent className="w-80 bg-white border-red-200 shadow-lg">
                     {exampleQueries.map((example, index) => (
-                      <button
+                      <DropdownMenuItem
                         key={index}
-                        onClick={() => handleExampleClick(example)}
-                        className="w-full text-left p-3 bg-white rounded-lg border border-gray-200 hover:border-red-300 hover:shadow-sm transition-all group"
+                        onClick={() => handleExampleSelect(example)}
+                        className="cursor-pointer hover:bg-red-50 p-4"
                       >
-                        <div className="text-sm text-gray-900 font-medium group-hover:text-red-600">
-                          {example.text}
+                        <div className="text-left">
+                          <div className="text-sm font-medium text-gray-900 mb-1">
+                            {example.text}
+                          </div>
+                          <div className="text-xs text-gray-500">
+                            {example.dates}
+                          </div>
                         </div>
-                        <div className="text-xs text-gray-500 mt-1">
-                          {example.dates}
-                        </div>
-                      </button>
+                      </DropdownMenuItem>
                     ))}
-                  </div>
-                </div>
+                  </DropdownMenuContent>
+                </DropdownMenu>
               </div>
 
               <TravelForm onSubmit={handleFormSubmit} isLoading={isLoading} exampleQueries={exampleQueries} />
