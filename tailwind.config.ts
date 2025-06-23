@@ -21,6 +21,7 @@ export default {
 		extend: {
 			fontFamily: {
 				'inter': ['Inter', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
+				'poppins': ['Poppins', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
 			},
 			colors: {
 				border: 'hsl(var(--border))',
@@ -133,7 +134,8 @@ export default {
 			backgroundImage: {
 				'gradient-futuristic': 'linear-gradient(135deg, #000000 0%, #1a1a1a 50%, #000000 100%)',
 				'gradient-orange': 'linear-gradient(135deg, #FF6B35 0%, #ff8c61 100%)',
-				'gradient-glass': 'linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%)'
+				'gradient-glass': 'linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%)',
+				'gradient-ocean': 'linear-gradient(135deg, #87CEEB 0%, #4682B4 50%, #1E90FF 100%)'
 			}
 		}
 	},

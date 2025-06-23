@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
@@ -73,14 +72,14 @@ const Index = () => {
   };
 
   return (
-    <div className="min-h-screen bg-white font-inter">
+    <div className="min-h-screen bg-gradient-ocean font-poppins">
       {/* Header */}
-      <header className="border-b border-gray-200 bg-white">
+      <header className="border-b border-white/20 bg-white/10 backdrop-blur-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-20">
             <div className="flex items-center">
-              <h1 className="text-2xl font-bold text-red-500">airbnb</h1>
-              <span className="ml-2 px-2 py-1 bg-red-100 text-red-600 text-xs font-medium rounded-full">
+              <h1 className="text-2xl font-bold text-white">airbnb</h1>
+              <span className="ml-2 px-2 py-1 bg-red-500 text-white text-xs font-medium rounded-full">
                 EXPERIMENTAL
               </span>
             </div>
@@ -89,20 +88,17 @@ const Index = () => {
       </header>
 
       {/* Hero Section */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="text-center mb-12">
-          <h1 className="text-5xl md:text-6xl font-bold text-red-500 mb-6">
-            Airbnb
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+        <div className="text-center mb-16">
+          <h1 className="text-7xl md:text-8xl lg:text-9xl font-bold text-red-500 mb-8 font-poppins">
+            Airbnb Search
           </h1>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-            Search low prices on hotels, homes and much more...
-          </p>
         </div>
 
         {/* Main Search Card */}
         <div className="max-w-4xl mx-auto">
           {!isSubmitted ? (
-            <Card className="bg-white border border-gray-200 shadow-lg rounded-2xl p-8">
+            <Card className="bg-white/95 backdrop-blur-sm border border-white/30 shadow-2xl rounded-2xl p-8">
               <div className="mb-8">
                 <h2 className="text-2xl font-semibold text-gray-900 mb-4">
                   Describe your perfect stay
@@ -133,7 +129,7 @@ const Index = () => {
               <TravelForm onSubmit={handleFormSubmit} isLoading={isLoading} exampleQueries={exampleQueries} />
             </Card>
           ) : (
-            <Card className="bg-white border border-green-200 shadow-lg rounded-2xl p-8 text-center">
+            <Card className="bg-white/95 backdrop-blur-sm border border-green-200 shadow-2xl rounded-2xl p-8 text-center">
               <div className="text-green-600 mb-4">
                 <div className="w-16 h-16 bg-green-100 rounded-full mx-auto mb-4 flex items-center justify-center">
                   <svg className="w-8 h-8" fill="currentColor" viewBox="0 0 20 20">
@@ -152,13 +148,13 @@ const Index = () => {
       </div>
 
       {/* Footer */}
-      <footer className="border-t border-gray-200 bg-gray-50 py-12 mt-16">
+      <footer className="border-t border-white/20 bg-white/10 backdrop-blur-sm py-12 mt-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
-            <p className="text-gray-500">
+            <p className="text-white/80">
               © 2025 Airbnb Search Experimental. This is an experimental search tool.
             </p>
-            <p className="text-sm text-gray-400 mt-2">
+            <p className="text-sm text-white/60 mt-2">
               🧪 Experimental Project - Results may vary
             </p>
           </div>
