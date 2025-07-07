@@ -82,6 +82,11 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-white font-poppins">
+      {/* Powered by text */}
+      <div className="text-center py-2 bg-gray-50">
+        <p className="text-red-500 text-sm font-medium">Powered by Traversaal.ai</p>
+      </div>
+
       {/* Header */}
       <header className="border-b border-gray-200 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
