@@ -149,7 +149,7 @@ const TravelForm: React.FC<TravelFormProps> = ({ onSubmit, isLoading, exampleQue
       </Button>
 
       <p className="text-xs text-gray-500 text-center">
-        Your personalized Airbnb listings will be sent to your email within minutes
+        Enter a valid email to receive booking details for your personalized Airbnb listings
       </p>
     </form>
   );

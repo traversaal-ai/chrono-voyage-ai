@@ -62,15 +62,15 @@ const Index = () => {
   const exampleQueries = [
     {
       text: "Beachfront villa in Bali with private pool for 6 people",
-      dates: "21st July to 23rd July 2025"
-    },
-    {
-      text: "Modern apartment in Tokyo near train stations", 
       dates: "15th August to 18th August 2025"
     },
     {
+      text: "Modern apartment in Tokyo near train stations", 
+      dates: "20th September to 23rd September 2025"
+    },
+    {
       text: "Cozy cabin in the Swiss Alps with mountain views",
-      dates: "10th September to 12th September 2025"
+      dates: "10th October to 12th October 2025"
     }
   ];
 
